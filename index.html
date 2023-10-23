@@ -4,30 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Idea Sharing Platform</title>
-    <style>
-        /* Add your CSS styling here */
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Idea Sharing Platform</h1>
-    
-    <!-- Countdown Timer -->
-    <div id="timer">
-        <p id="timer-text">5:00</p>
+
+<div id="app">
+    <div>
+        <label for="idea">Share your idea:</label>
+        <textarea id="idea"></textarea>
+        <button onclick="submitIdea()">Submit</button>
     </div>
 
-    <!-- Idea Submission Form -->
-    <div id="idea-form">
-        <textarea id="idea-input" placeholder="Enter your idea..."></textarea>
-        <button id="submit-button">Submit</button>
-    </div>
+    <p id="timer">Time remaining: 5:00</p>
 
-    <!-- List of Submitted Ideas -->
-    <div id="idea-list">
-        <h2>Submitted Ideas</h2>
-        <ul id="ideas"></ul>
+    <div id="ideas-container">
+        <!-- Ideas will be displayed here -->
     </div>
+</div>
 
-    <script src="main.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
