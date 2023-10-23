@@ -1,41 +1,42 @@
-let timeRemaining = 300;  // 5 minutes in seconds
-const timerDisplay = document.getElementById('timer');
-const ideaTextarea = document.getElementById('idea');
-const submitButton = document.querySelector('button');
+const firebaseConfig = {
+    apiKey: "AIzaSyCKzloE6R4bK9REbmGm-bHAfqF2WaA7fjA",
+    authDomain: "brainstorming-idea.firebaseapp.com",
+    databaseURL: "https://brainstorming-idea-default-rtdb.firebaseio.com",
+    projectId: "brainstorming-idea",
+    storageBucket: "brainstorming-idea.appspot.com",
+    messagingSenderId: "543716867271",
+    appId: "1:543716867271:web:022e3f6c562f992b6bd2e2"
+};
 
-function startTimer() {
-    const interval = setInterval(() => {
-        timeRemaining--;
-
-        const minutes = Math.floor(timeRemaining / 60);
-        const seconds = timeRemaining % 60;
-        timerDisplay.textContent = `Time remaining: ${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-        if (timeRemaining <= 0) {
-            clearInterval(interval);
-            ideaTextarea.disabled = true;
-            submitButton.disabled = true;
-            timerDisplay.textContent = "Time's up!";
-        }
-    }, 1000);
-}
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
 function submitIdea() {
-    const idea = ideaTextarea.value;
+    const idea = document.getElementById('idea').value;
     if (idea.trim() === '') {
         alert('Please enter a valid idea!');
         return;
     }
-
-    // Add the idea to the ideas container
-    const ideasContainer = document.getElementById('ideas-container');
-    const ideaElement = document.createElement('div');
-    ideaElement.textContent = idea;
-    ideaElement.className = 'idea';  // for potential styling later
-    ideasContainer.appendChild(ideaElement);
+    
+    // Push the idea to Firebase
+    database.ref('ideas/').push({
+        content: idea
+    });
 
     // Clear the idea textarea
-    ideaTextarea.value = '';
+    document.getElementById('idea').value = '';
 }
 
-startTimer();  // Start the timer as soon as the page loads
+function addIdeaToDisplay(content) {
+    const ideasContainer = document.getElementById('ideas-container');
+    const ideaElement = document.createElement('div');
+    ideaElement.textContent = content;
+    ideasContainer.appendChild(ideaElement);
+}
+
+database.ref('ideas/').on('child_added', function(data) {
+    addIdeaToDisplay(data.val().content);
+});
+
+document.getElementById('submit-button').addEventListener('click', submitIdea);

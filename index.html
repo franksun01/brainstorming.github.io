@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Idea Sharing Platform</title>
+    <title>Brainstorming Ideas</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js"></script>
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js"></script>
 </head>
 <body>
-
-<div id="app">
-    <div>
-        <label for="idea">Share your idea:</label>
-        <textarea id="idea"></textarea>
-        <button onclick="submitIdea()">Submit</button>
+    <div class="container">
+        <h1>Brainstorming Session</h1>
+        <textarea id="idea" placeholder="Share your idea..."></textarea>
+        <button id="submit-button">Submit</button>
+        <h2>Submitted Ideas:</h2>
+        <div id="ideas-container"></div>
     </div>
 
-    <p id="timer">Time remaining: 5:00</p>
-
-    <div id="ideas-container">
-        <!-- Ideas will be displayed here -->
-    </div>
-</div>
-
-<script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
