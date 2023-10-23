@@ -16,6 +16,8 @@ let timerDuration = 300; // 5 minutes in seconds
 let timerInterval;
 
 function startTimer() {
+    if(timerInterval) return; // Ensure we don't start the timer multiple times
+
     timerInterval = setInterval(function() {
         timerDuration--;
         const minutes = Math.floor(timerDuration / 60);
@@ -56,9 +58,11 @@ function addIdeaToDisplay(content) {
 
 database.ref('ideas/').on('child_added', function(data) {
     addIdeaToDisplay(data.val().content);
+}, function(error) {
+    console.error("Error retrieving ideas: ", error);
 });
 
 document.getElementById('submit-button').addEventListener('click', submitIdea);
 
-// Start the timer when the page loads
-window.onload = startTimer;
+// Start the timer immediately
+startTimer();
