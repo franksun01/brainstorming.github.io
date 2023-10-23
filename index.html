@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idea Sharing Platform</title>
+    <style>
+        /* Add your CSS styling here */
+    </style>
+</head>
+<body>
+    <h1>Idea Sharing Platform</h1>
+    
+    <!-- Countdown Timer -->
+    <div id="timer">
+        <p id="timer-text">5:00</p>
+    </div>
+
+    <!-- Idea Submission Form -->
+    <div id="idea-form">
+        <textarea id="idea-input" placeholder="Enter your idea..."></textarea>
+        <button id="submit-button">Submit</button>
+    </div>
+
+    <!-- List of Submitted Ideas -->
+    <div id="idea-list">
+        <h2>Submitted Ideas</h2>
+        <ul id="ideas"></ul>
+    </div>
+
+    <script>
+        // Countdown Timer Logic
+        let timerInterval;
+        let timeRemaining = 300; // 5 minutes (in seconds)
+
+        function updateTimer() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const timerText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            document.getElementById("timer-text").textContent = timerText;
+
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+                alert("Time's up!");
+            }
+
+            timeRemaining--;
+        }
+
+        // Start the timer when the page loads
+        timerInterval = setInterval(updateTimer, 1000);
+
+        // Idea Submission Logic
+        const submitButton = document.getElementById("submit-button");
+        const ideaInput = document.getElementById("idea-input");
+        const ideasList = document.getElementById("ideas");
+
+        submitButton.addEventListener("click", () => {
+            const ideaText = ideaInput.value.trim();
+            if (ideaText === "") return;
+
+            // Create a new list item for the submitted idea
+            const ideaItem = document.createElement("li");
+            ideaItem.textContent = ideaText;
+            ideasList.appendChild(ideaItem);
+
+            // Clear the input field
+            ideaInput.value = "";
+
+            // Reset the timer
+            clearInterval(timerInterval);
+            timeRemaining = 300; // 5 minutes (in seconds)
+            timerInterval = setInterval(updateTimer, 1000);
+        });
+    </script>
+</body>
+</html>
