@@ -1,5 +1,5 @@
 const repositoryOwner = 'franksun01';
-const repositoryName = 'brainstorming.github.io';
+const repositoryName = 'brainstorming.github.io'; // Use the name of your GitHub repository
 
 fetch(`https://api.github.com/repos/${repositoryOwner}/${repositoryName}/issues`)
     .then(response => response.json())
