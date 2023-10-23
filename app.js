@@ -12,6 +12,25 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
+let timerDuration = 300; // 5 minutes in seconds
+let timerInterval;
+
+function startTimer() {
+    timerInterval = setInterval(function() {
+        timerDuration--;
+        const minutes = Math.floor(timerDuration / 60);
+        const seconds = timerDuration % 60;
+        document.getElementById('timer').textContent = `Time Remaining: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (timerDuration <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById('submit-button').disabled = true;
+            document.getElementById('idea').disabled = true;
+            document.getElementById('timer').textContent = "Time's up!";
+        }
+    }, 1000);
+}
+
 function submitIdea() {
     const idea = document.getElementById('idea').value;
     if (idea.trim() === '') {
@@ -40,3 +59,6 @@ database.ref('ideas/').on('child_added', function(data) {
 });
 
 document.getElementById('submit-button').addEventListener('click', submitIdea);
+
+// Start the timer when the page loads
+window.onload = startTimer;
