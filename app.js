@@ -16,14 +16,14 @@ let timerDuration = 300; // 5 minutes in seconds
 let timerInterval;
 
 function startTimer() {
-    if(timerInterval) return; // Ensure we don't start the timer multiple times
+    if(timerInterval) return;
 
     timerInterval = setInterval(function() {
         timerDuration--;
         const minutes = Math.floor(timerDuration / 60);
         const seconds = timerDuration % 60;
         document.getElementById('timer').textContent = `Time Remaining: ${minutes}:${seconds.toString().padStart(2, '0')}`;
-        
+
         if (timerDuration <= 0) {
             clearInterval(timerInterval);
             document.getElementById('submit-button').disabled = true;
@@ -56,6 +56,10 @@ function addIdeaToDisplay(content) {
     ideasContainer.appendChild(ideaElement);
 }
 
+function clearIdeasFromDatabase() {
+    database.ref('ideas/').remove();
+}
+
 database.ref('ideas/').on('child_added', function(data) {
     addIdeaToDisplay(data.val().content);
 }, function(error) {
@@ -63,6 +67,11 @@ database.ref('ideas/').on('child_added', function(data) {
 });
 
 document.getElementById('submit-button').addEventListener('click', submitIdea);
+
+document.getElementById('refresh-button').addEventListener('click', function() {
+    clearIdeasFromDatabase(); // This clears ideas from Firebase
+    location.reload(); // This will refresh the page
+});
 
 // Start the timer immediately
 startTimer();
