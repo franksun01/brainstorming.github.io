@@ -60,3 +60,15 @@ button:hover {
 #refresh-button:hover {
     background-color: #218838;
 }
+
+.session-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#session-input {
+    flex-grow: 2;
+    padding: 5px 10px;
+    margin-right: 10px;
+}

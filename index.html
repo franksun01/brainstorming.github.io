@@ -13,11 +13,20 @@
 <body>
     <div class="container">
         <h1>OMI Brainstorming Session</h1>
+        
+        <h3>Join a session:</h3>
+        <input type="text" id="session-input" placeholder="Enter session code">
+        <button id="join-session-button">Join</button>
+        <p id="current-session-display">No session joined</p>
+        
         <textarea id="idea" placeholder="Share your idea..."></textarea>
         <button id="submit-button">Submit</button>
+        
         <div id="timer">Time Remaining: 5:00</div>
+        
         <h2>Submitted Ideas:</h2>
         <div id="ideas-container"></div>
+        
         <button id="refresh-button">Clear Display & Refresh</button>
     </div>
     <script src="app.js"></script>
